@@ -1,8 +1,6 @@
 import javax.swing.*;
-import javax.swing.text.Element;
 import java.awt.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class MainPanel extends JPanel {
