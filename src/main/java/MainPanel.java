@@ -11,15 +11,11 @@ public class MainPanel extends JPanel {
 
     private Font buttonFont;
 
-    private ChromeDriver driver;
-
-    private boolean isClicked;
+//    private ChromeDriver driver;
 
     public MainPanel (int x, int y, int width, int height){
         this.setLayout(null);
         this.setBounds(x, y , width, height);
-
-        this.isClicked = false;
 
         this.buttonFont = new Font("David",Font.BOLD,Constants.BUTTON_FONT_SIZE);
         this.whatsappButton = new JButton();
@@ -31,9 +27,16 @@ public class MainPanel extends JPanel {
                 "C:\\Users\\dasha\\Downloads\\chromedriver_win32\\chromedriver.exe");
 
         this.whatsappButton.addActionListener((e) -> {
-            this.isClicked = true;
-            this.driver = new ChromeDriver();
-            this.driver.get(Constants.webWhatsappAddress);
+            ChromeDriver driver = new ChromeDriver();
+            driver.get(Constants.webWhatsappAddress);
+
+            boolean check = false;
+            while (!check){
+                try {
+                    check = driver.findElement(By.id("side")) != null;
+                }catch (Exception exception){
+                }
+            }
         });
 
 //        this.whatsappButton.addActionListener((e) -> {
