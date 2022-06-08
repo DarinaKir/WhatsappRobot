@@ -1,5 +1,5 @@
 public class Constants {
-    public static final String WEB_WHATSAPP_ADDRESS = "https://web.whatsapp.com/";
+    public static final String WEB_WHATSAPP_ADDRESS = "https://web.whatsapp.com/send?phone=972";
 
     public static final int WINDOW_WIDTH = 900;
     public static final int WINDOW_HEIGHT = 550;
@@ -10,4 +10,8 @@ public class Constants {
 
     public static final int CONNECTED_TEXT_WIDTH = 220;
 
+    public static final int TEXT_FIELD_WIDTH = 150;
+    public static final int TEXT_FIELD_HEIGHT = 30;
+
+    public static final int SPACE = 10;
 }
