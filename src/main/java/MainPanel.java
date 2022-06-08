@@ -21,6 +21,8 @@ public class MainPanel extends JPanel {
     private Font buttonFont;
     private Font textFont;
 
+    private int amountResponseMessages;
+
     private WebElement lastMessage;
 
     public MainPanel(int x, int y, int width, int height) {
@@ -74,6 +76,10 @@ public class MainPanel extends JPanel {
                     sendMessage();
 
                     updateMessageStatus ();
+
+                    this.amountResponseMessages = getResponseMessages().size();
+
+                    checkRespondMessage ();
                     
                 } else {
                     this.messages.setText("no message");
@@ -118,6 +124,20 @@ public class MainPanel extends JPanel {
             }
         }
         messages.setText("You are connected!");
+    }
+
+    private List <WebElement> getResponseMessages(){
+        List <WebElement> responseMessagesList = null;
+        boolean isResponseMessagesExist = false;
+        while (!isResponseMessagesExist) {
+            try {
+                responseMessagesList = this.driver.findElements(By.cssSelector("span[data-icon=\"tail-in\"]"));
+                isResponseMessagesExist = true;
+            } catch (NoSuchElementException exception) {
+
+            }
+        }
+        return responseMessagesList;
     }
 
     private void sendMessage(){
@@ -167,12 +187,12 @@ public class MainPanel extends JPanel {
 
             if (!messageStatus2.equals(messageStatus1)) {
                 if (messageStatus2.equals(" Sent ")) {
-                    this.messages.setText("The message sent");
+                    this.messages.setText("V");
                 } else if (messageStatus2.equals(" Delivered ")) {
-                    this.messages.setText("The message delivered");
+                    this.messages.setText("VV");
                 }else if (messageStatus2.equals(" Read ")) {
                     isRead = true;
-                    this.messages.setText("The message read");
+                    this.messages.setText("Blue VV");
                 }
                 messageStatus1 = messageStatus2;
             }
@@ -184,4 +204,16 @@ public class MainPanel extends JPanel {
 //        Delivered
 //        Read
     }
+
+    private void checkRespondMessage (){
+        List <WebElement> responseMessagesList = null;
+        boolean isReceivedNewMessage = false;
+        while (!isReceivedNewMessage){
+            responseMessagesList = getResponseMessages();
+            isReceivedNewMessage = (this.amountResponseMessages < responseMessagesList.size());
+        }
+        System.out.println("Received a new message");
+        System.out.println(responseMessagesList.get(this.amountResponseMessages).getText());
+    }
+
 }
